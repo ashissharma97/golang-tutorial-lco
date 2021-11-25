@@ -15,7 +15,9 @@ func main() {
 
 	// PostJSONRequest()
 
-	postFormRequest()
+	// postFormRequest()
+
+	PostFromDataRequest()
 
 }
 
@@ -52,4 +54,22 @@ func postFormRequest() {
 	responseData, _ := ioutil.ReadAll(resp.Body)
 
 	fmt.Println(string(responseData))
+}
+
+func PostFromDataRequest() {
+	const myurl = "http://localhost:8000/postform"
+
+	data := url.Values{}
+	data.Add("firstname", "ashis")
+	data.Add("lastname", "sharma")
+	data.Add("email", "ashis@gmail.com")
+
+	resp, err := http.PostForm(myurl, data)
+
+	if err != nil {
+		panic(err)
+	}
+
+	content, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println(string(content))
 }
